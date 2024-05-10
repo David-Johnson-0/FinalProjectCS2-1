@@ -82,16 +82,19 @@ class Logic(QMainWindow, Ui_VotingForm):
 # The function then writes the candidate names to the csv file before clearing the candidates.
     def submit_candidate(self) -> None:
         name = self.candinput.text()
+        allow = True
         if not name:
             self.candinput.setFocus()
-        if self.cand1.text() and self.cand2.text() and self.cand3.text() and self.cand4.text() and self.cand5.text():
-            pass
-        else:
-            with open('data.csv', mode='a', newline='') as file:
-                writer = csv.writer(file)
-                writer.writerow([name, 0])
-            self.candidates()
-            self.clear()
+            allow = False
+        if allow:
+            if self.cand1.text() and self.cand2.text() and self.cand3.text() and self.cand4.text() and self.cand5.text():
+                pass
+            else:
+                with open('data.csv', mode='a', newline='') as file:
+                    writer = csv.writer(file)
+                    writer.writerow([name, 0])
+                self.candidates()
+                self.clear()
         pass
 # First the function sets the text in the candidate names to none while opening the csvreader.
 # It then sets the first not filled slot with the name input (ending if all are filled), then calls the get_tally function.
