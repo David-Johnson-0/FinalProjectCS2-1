@@ -4,7 +4,7 @@ import csv
 from PyQt6.QtWidgets import *
 # Initializes the main window, sets up the connections of each button to their functions, and sets all the buttons and input areas to blank by default
 class Logic(QMainWindow, Ui_VotingForm):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.setupUi(self)
 
@@ -24,7 +24,7 @@ class Logic(QMainWindow, Ui_VotingForm):
 # Checks which candidate is selected for the vote, then sames their name into the variable "name".
 # Then, it opens the data.csv file, creates the reader, and increases the second variable in the row (the vote count) by one if the name matches the first variable in the row.
 # Lastly, it creates a csvwriter, and writes the now updated information to the data.csv file before calling the get_tally and clear functions (to deselect the candidate).
-    def vote(self):
+    def vote(self) -> None:
         if self.cand1.isChecked():
             name = self.cand1.text()
         elif self.cand2.isChecked():
@@ -57,7 +57,7 @@ class Logic(QMainWindow, Ui_VotingForm):
     # The total variable has the amount of the int version of row[1] added to it, while the variable winnerVal is compared to row[1].
     # If winnerVal is less than row[1], then both winnerVal and winnerName are set to the int(row[1]) and row[0] respectively.
     # It then creates the current_text variable and sets it to the current infobox text once more, and adds the winner's name, how many votes they have, and how many votes there were total.
-    def exit(self):
+    def exit(self) -> None:
         with open('data.csv', mode='r', newline='') as file:
             reader = csv.reader(file)
             rows = list(reader)
@@ -80,7 +80,7 @@ class Logic(QMainWindow, Ui_VotingForm):
                                  f" out of {total} total votes!")
 # The variable name is set to whatever is in the candinput box, and focus is set to it if it is blank.
 # The function then writes the candidate names to the csv file before clearing the candidates.
-    def submit_candidate(self):
+    def submit_candidate(self) -> None:
         name = self.candinput.text()
         if not name:
             self.candinput.setFocus()
@@ -95,7 +95,7 @@ class Logic(QMainWindow, Ui_VotingForm):
         pass
 # First the function sets the text in the candidate names to none while opening the csvreader.
 # It then sets the first not filled slot with the name input (ending if all are filled), then calls the get_tally function.
-    def candidates(self):
+    def candidates(self) -> None:
         with open('data.csv', mode='r', newline='') as file:
             reader = csv.reader(file)
             rows = list(reader)
@@ -124,7 +124,7 @@ class Logic(QMainWindow, Ui_VotingForm):
                     pass
         self.get_tally()
 # Puts the total votes per candidate in the counting box.
-    def get_tally(self):
+    def get_tally(self) -> None:
         with open('data.csv', mode='r', newline='') as file:
             reader = csv.reader(file)
             rows = list(reader)
@@ -141,7 +141,7 @@ class Logic(QMainWindow, Ui_VotingForm):
                     self.candvote5.setText(row[1])
         pass
     # Clears all selections and the input box while refocusing to it.
-    def clear(self):
+    def clear(self) -> None:
         self.cand1.setChecked(False)
         self.cand2.setChecked(False)
         self.cand3.setChecked(False)
